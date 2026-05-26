@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Tilemaps;
 
 public class PlayerController : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public Sprite[] spriteLeft;
     public Sprite[] spriteRight;
     public float frameTime = 0.15f;
+    public Tilemap groundTilemap;
     private Rigidbody2D rb;
     private SpriteRenderer sr;
     private Vector2 input;
@@ -16,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private Sprite[] currentSprites;
     private int frameIndex = 0;
     private float timer = 0f;
+
 
     private void Awake()
     {
@@ -78,7 +81,31 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+        if (groundTilemap == null)
+        {
+            rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
+            return;
+        }
+
+        Vector2 currentPos = rb.position;
+        Vector2 movement = velocity * Time.fixedDeltaTime;
+        Vector2 nextPos = currentPos + movement;
+
+        Vector3Int cellX = groundTilemap.WorldToCell(new Vector3(nextPos.x, currentPos.y, 0));
+        if (!groundTilemap.HasTile(cellX))
+        {
+            nextPos.x = currentPos.x; // ground 타일이 없으면 X축 이동 차단
+        }
+
+        // 2. Y축 이동 가능 여부 체크
+        Vector3Int cellY = groundTilemap.WorldToCell(new Vector3(currentPos.x, nextPos.y, 0));
+        if (!groundTilemap.HasTile(cellY))
+        {
+            nextPos.y = currentPos.y; // ground 타일이 없으면 Y축 이동 차단
+        }
+
+        // 최종 계산된 안전한 위치로 이동
+        rb.MovePosition(nextPos);
     }
 
     private void ChangeSprites(Sprite[] newSprites)

@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - boundary
   layers:
   - Default
   - TransparentFX
@@ -38,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: wall
+    uniqueID: 3329470151
+    locked: 0
   - name: Background
     uniqueID: 3200848379
     locked: 0
