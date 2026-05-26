@@ -222,7 +222,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.14, y: 0.15}
+  m_Size: {x: 0.184, y: 0.39}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -313,7 +313,7 @@ GameObject:
   - component: {fileID: 142356453}
   - component: {fileID: 142356452}
   m_Layer: 0
-  m_Name: Tilemap_ing
+  m_Name: "\uC7A5\uC560\uBB3C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,7 +436,7 @@ GameObject:
   - component: {fileID: 390409315}
   - component: {fileID: 390409314}
   m_Layer: 0
-  m_Name: Tilemap2
+  m_Name: background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24651,7 +24651,7 @@ GameObject:
   - component: {fileID: 1140960068}
   - component: {fileID: 1140960067}
   m_Layer: 0
-  m_Name: Tilemap
+  m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
