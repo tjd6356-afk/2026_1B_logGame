@@ -31,6 +31,13 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
+        if (Time.timeScale == 0f)
+        {
+            input = Vector2.zero;
+            velocity = Vector2.zero;
+            return;
+        }
+
         input = value.Get<Vector2>();
         velocity = input.normalized * moveSpeed;
 
@@ -94,17 +101,17 @@ public class PlayerController : MonoBehaviour
         Vector3Int cellX = groundTilemap.WorldToCell(new Vector3(nextPos.x, currentPos.y, 0));
         if (!groundTilemap.HasTile(cellX))
         {
-            nextPos.x = currentPos.x; // ground Å¸ÀÏÀÌ ¾øÀ¸¸é XÃà ÀÌµ¿ Â÷´Ü
+            nextPos.x = currentPos.x; // ground Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Xï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        // 2. YÃà ÀÌµ¿ °¡´É ¿©ºÎ Ã¼Å©
+        // 2. Yï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©
         Vector3Int cellY = groundTilemap.WorldToCell(new Vector3(currentPos.x, nextPos.y, 0));
         if (!groundTilemap.HasTile(cellY))
         {
-            nextPos.y = currentPos.y; // ground Å¸ÀÏÀÌ ¾øÀ¸¸é YÃà ÀÌµ¿ Â÷´Ü
+            nextPos.y = currentPos.y; // ground Å¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Yï¿½ï¿½ ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        // ÃÖÁ¾ °è»êµÈ ¾ÈÀüÇÑ À§Ä¡·Î ÀÌµ¿
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ìµï¿½
         rb.MovePosition(nextPos);
     }
 
