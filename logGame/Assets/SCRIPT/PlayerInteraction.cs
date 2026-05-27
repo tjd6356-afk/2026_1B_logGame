@@ -14,6 +14,8 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
+        if (Time.timeScale == 0f) return; // 게임이 일시정지 중이면 키 입력을 무시함
+        
         //  New Input System 방식으로 E 키가 이번 프레임에 눌렸는지 체크
         if (Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
         {
