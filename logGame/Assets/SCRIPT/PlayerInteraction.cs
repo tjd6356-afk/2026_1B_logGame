@@ -8,6 +8,10 @@ public class PlayerInteraction : MonoBehaviour
     public string targetTag = "boundary"; // 감지할 장애물의 태그
     public float removalTime = 2.0f;       // 장애물 제거에 걸리는 시간 (초)
 
+    [Header("아이템 및 조건 설정")]
+    public string itemTag = "item";              // 감지할 아이템의 태그
+    public string requiredItemName = "Item_1";   // 장애물을 부수기 위해 필요한 아이템 이름
+
     private GameObject currentObstacle = null; // 현재 범위 내에 있는 장애물
     private Coroutine removeCoroutine = null;   // 진행 중인 제거 코루틴 저장용
     private bool isRemoving = false;            // 현재 제거 중인지 확인하는 플래그
@@ -22,7 +26,14 @@ public class PlayerInteraction : MonoBehaviour
             // 상호작용 가능한 장애물이 있고, 이미 제거 중이 아닐 때만 시작
             if (currentObstacle != null && !isRemoving)
             {
-                removeCoroutine = StartCoroutine(RemoveObstacleRoutine(currentObstacle));
+                if (GameDataManager.instance.playerData.collectedItems.Contains(requiredItemName))
+                {
+                    removeCoroutine = StartCoroutine(RemoveObstacleRoutine(currentObstacle));
+                }
+                else
+                {
+                    Debug.Log($"[상호작용 불가] 장애물을 제거하려면 '{requiredItemName}'이(가) 필요합니다!");
+                }
             }
         }
     }
@@ -56,6 +67,22 @@ public class PlayerInteraction : MonoBehaviour
         {
             currentObstacle = collision.gameObject;
             Debug.Log($"[상호작용 가능] {currentObstacle.name}에 접근함. (E 키를 누르세요)");
+        }
+
+        else if (collision.CompareTag(itemTag))
+        {
+            string itemName = collision.gameObject.name; // 닿은 아이템의 이름 가져오기
+
+            // 인벤토리에 없는 아이템이라면 추가하고 데이터 저장
+            if (!GameDataManager.instance.playerData.collectedItems.Contains(itemName))
+            {
+                GameDataManager.instance.playerData.collectedItems.Add(itemName);
+                GameDataManager.instance.SaveData(GameDataManager.instance.playerData);
+                Debug.Log($"[아이템 획득] '{itemName}'을(를) 인벤토리에 넣었습니다.");
+            }
+
+            // 필드에서 아이템 오브젝트 제거
+            Destroy(collision.gameObject);
         }
     }
 

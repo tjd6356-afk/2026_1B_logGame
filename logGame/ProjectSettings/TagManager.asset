@@ -52,5 +52,8 @@ TagManager:
   - name: boundary
     uniqueID: 2556099351
     locked: 0
+  - name: Player
+    uniqueID: 3985716881
+    locked: 0
   m_RenderingLayers:
   - Default
