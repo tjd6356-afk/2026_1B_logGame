@@ -6,7 +6,6 @@ public class InventoryManager : MonoBehaviour
     [Header("UI 설정")]
     public GameObject inventoryPanel; 
 
-    // ▼▼▼ 새로 추가된 부분: 탭으로 사용할 내용물 패널들을 담을 배열 ▼▼▼
     [Header("탭 내용물 패널 (Content)")]
     public GameObject[] contentPanels; 
 
