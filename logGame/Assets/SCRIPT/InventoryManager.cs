@@ -19,6 +19,7 @@ public class InventoryManager : MonoBehaviour
     [Header("★ 아이템 정보창 UI")]
     public TextMeshProUGUI itemNameText;             // 아이템 이름 텍스트
     public TextMeshProUGUI itemDescText;             // 아이템 설명 텍스트
+    public Image infoItemIcon;                      //정보창에 보일 큰 아이템 이미지 칸
     public Button equipButton;            // 장착 버튼
     public Button unequipButton;          // 장착 해제 버튼
 
@@ -143,6 +144,12 @@ public class InventoryManager : MonoBehaviour
         itemNameText.text = item.displayName;
         itemDescText.text = item.description;
 
+        if (infoItemIcon != null)
+        {
+            infoItemIcon.sprite = item.icon;
+            infoItemIcon.gameObject.SetActive(true);
+        }
+
         UpdateActionButtons();
     }
 
@@ -152,6 +159,7 @@ public class InventoryManager : MonoBehaviour
         selectedItem = null;
         if (itemNameText != null) itemNameText.text = "아이템을 선택하세요.";
         if (itemDescText != null) itemDescText.text = "";
+        if (infoItemIcon != null) infoItemIcon.gameObject.SetActive(false);
         if (equipButton != null) equipButton.gameObject.SetActive(false);
         if (unequipButton != null) unequipButton.gameObject.SetActive(false);
     }
