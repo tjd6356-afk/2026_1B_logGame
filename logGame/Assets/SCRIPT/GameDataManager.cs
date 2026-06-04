@@ -10,6 +10,7 @@ public class PlayerData
 {
     public List<string> collectedItems = new List<string>();
     public int stage = 1;
+    public string equippedItem = "";
 }
 public class GameDataManager : MonoBehaviour
 {
