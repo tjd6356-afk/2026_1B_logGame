@@ -15,4 +15,7 @@ MonoBehaviour:
   itemName: Item_1
   displayName: "\uACE1\uAC31\uC774"
   description: "\uD55C \uB54C \uB204\uAD70\uAC00\uAC00 \uC4F4 \uACE1\uAC31\uC774\uB2E4."
-  icon: {fileID: 21300000, guid: ec23e33668eecff4aaec16f735dcc204, type: 3}
+  icon: {fileID: 1729840402284382006, guid: e350f3458efdb3740a7f9402d4a6976c, type: 3}
+  attackBonus: 15
+  healthBonus: 0
+  defenseBonus: 0

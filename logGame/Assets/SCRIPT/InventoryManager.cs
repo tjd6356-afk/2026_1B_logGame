@@ -191,11 +191,14 @@ public class InventoryManager : MonoBehaviour
     {
         if (selectedItem == null) return;
 
-        // 데이터에 현재 아이템 이름 등록 후 세이브
         GameDataManager.instance.playerData.equippedItem = selectedItem.itemName;
         GameDataManager.instance.SaveData(GameDataManager.instance.playerData);
         
         Debug.Log($"[인벤토리] {selectedItem.displayName} 장착 완료!");
+        
+        // ★ 추가: 장착 후 플레이어 스탯 실시간 업데이트 호출
+        GameObject.FindGameObjectWithTag("Player")?.GetComponent<CharacterStats>()?.UpdateStats();
+
         UpdateActionButtons();
     }
 
@@ -203,11 +206,14 @@ public class InventoryManager : MonoBehaviour
     {
         if (selectedItem == null) return;
 
-        // 데이터를 빈 문자열로 만들고 세이브
         GameDataManager.instance.playerData.equippedItem = "";
         GameDataManager.instance.SaveData(GameDataManager.instance.playerData);
 
         Debug.Log($"[인벤토리] 장착 해제 완료!");
+        
+        // ★ 추가: 해제 후 플레이어 스탯 실시간 업데이트 호출
+        GameObject.FindGameObjectWithTag("Player")?.GetComponent<CharacterStats>()?.UpdateStats();
+
         UpdateActionButtons();
     }
 }
