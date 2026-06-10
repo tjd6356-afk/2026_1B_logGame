@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    [Header("⚔️ 기본 스탯 설정 (인스펙터에서 수정 가능)")]
+    [Header(" 기본 스탯 설정 (인스펙터에서 수정 가능)")]
     public int baseAttack = 10;
     public int baseMaxHealth = 100;
     public int baseDefense = 5;
@@ -44,7 +44,7 @@ public class CharacterStats : MonoBehaviour
             if (!string.IsNullOrEmpty(equippedName))
             {
                 // 씬에 있는 InventoryManager를 찾아 해당 아이템의 스탯 데이터를 가져옴
-                InventoryManager inv = FindObjectOfType<InventoryManager>();
+                InventoryManager inv = FindFirstObjectByType<InventoryManager>();
                 if (inv != null)
                 {
                     ItemData equippedItemData = inv.itemDatabase.Find(x => x.itemName == equippedName);

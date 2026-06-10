@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 14067625}
   - component: {fileID: 14067624}
   - component: {fileID: 14067626}
-  - component: {fileID: 14067627}
   m_Layer: 5
   m_Name: File_2
   m_TagString: Untagged
@@ -242,10 +241,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 14067627}
-        m_TargetAssemblyTypeName: SaveLoadSlotButton, Assembly-CSharp
-        m_MethodName: ClickSlot
-        m_Mode: 1
+      - m_Target: {fileID: 1293037060}
+        m_TargetAssemblyTypeName: GameDataManager, Assembly-CSharp
+        m_MethodName: OnClickFileSlot
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -254,19 +253,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &14067627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14067622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e3be9177352d249ae303aaedddb517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotNumber: 2
 --- !u!1 &16065084
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,7 +732,6 @@ GameObject:
   - component: {fileID: 54659695}
   - component: {fileID: 54659694}
   - component: {fileID: 54659696}
-  - component: {fileID: 54659697}
   m_Layer: 5
   m_Name: File_5
   m_TagString: Untagged
@@ -857,10 +842,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 54659697}
-        m_TargetAssemblyTypeName: SaveLoadSlotButton, Assembly-CSharp
-        m_MethodName: ClickSlot
-        m_Mode: 1
+      - m_Target: {fileID: 1293037060}
+        m_TargetAssemblyTypeName: GameDataManager, Assembly-CSharp
+        m_MethodName: OnClickFileSlot
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -869,19 +854,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &54659697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 54659692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e3be9177352d249ae303aaedddb517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotNumber: 5
 --- !u!1 &80060175
 GameObject:
   m_ObjectHideFlags: 0
@@ -1448,7 +1420,6 @@ GameObject:
   - component: {fileID: 128716746}
   - component: {fileID: 128716745}
   - component: {fileID: 128716747}
-  - component: {fileID: 128716748}
   m_Layer: 5
   m_Name: File_3
   m_TagString: Untagged
@@ -1559,10 +1530,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 128716748}
-        m_TargetAssemblyTypeName: SaveLoadSlotButton, Assembly-CSharp
-        m_MethodName: ClickSlot
-        m_Mode: 1
+      - m_Target: {fileID: 1293037060}
+        m_TargetAssemblyTypeName: GameDataManager, Assembly-CSharp
+        m_MethodName: OnClickFileSlot
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1571,19 +1542,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &128716748
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 128716743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e3be9177352d249ae303aaedddb517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotNumber: 3
 --- !u!1 &136006643
 GameObject:
   m_ObjectHideFlags: 0
@@ -120118,7 +120076,6 @@ GameObject:
   - component: {fileID: 738292413}
   - component: {fileID: 738292412}
   - component: {fileID: 738292414}
-  - component: {fileID: 738292415}
   m_Layer: 5
   m_Name: File_4
   m_TagString: Untagged
@@ -120229,10 +120186,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 738292415}
-        m_TargetAssemblyTypeName: SaveLoadSlotButton, Assembly-CSharp
-        m_MethodName: ClickSlot
-        m_Mode: 1
+      - m_Target: {fileID: 1293037060}
+        m_TargetAssemblyTypeName: GameDataManager, Assembly-CSharp
+        m_MethodName: OnClickFileSlot
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -120241,19 +120198,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &738292415
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 738292410}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e3be9177352d249ae303aaedddb517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotNumber: 4
 --- !u!1 &747148894
 GameObject:
   m_ObjectHideFlags: 0
@@ -121391,7 +121335,6 @@ GameObject:
   - component: {fileID: 931852664}
   - component: {fileID: 931852663}
   - component: {fileID: 931852665}
-  - component: {fileID: 931852666}
   m_Layer: 5
   m_Name: File_1
   m_TagString: Untagged
@@ -121502,10 +121445,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 931852666}
-        m_TargetAssemblyTypeName: SaveLoadSlotButton, Assembly-CSharp
-        m_MethodName: ClickSlot
-        m_Mode: 1
+      - m_Target: {fileID: 1293037060}
+        m_TargetAssemblyTypeName: GameDataManager, Assembly-CSharp
+        m_MethodName: OnClickFileSlot
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -121514,19 +121457,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &931852666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 931852661}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63e3be9177352d249ae303aaedddb517, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slotNumber: 1
 --- !u!1 &949622276
 GameObject:
   m_ObjectHideFlags: 0
