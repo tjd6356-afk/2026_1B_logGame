@@ -119841,6 +119841,7 @@ GameObject:
   - component: {fileID: 501626333}
   - component: {fileID: 501626332}
   - component: {fileID: 501626334}
+  - component: {fileID: 501626335}
   m_Layer: 0
   m_Name: NPC_01
   m_TagString: Untagged
@@ -119931,6 +119932,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDialogue: {fileID: 11400000, guid: 9f0a5b0efc0f1da4dabe8c9418bbed64, type: 2}
+--- !u!58 &501626335
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501626331}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.84
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -122395,6 +122432,7 @@ GameObject:
   - component: {fileID: 1057146070}
   - component: {fileID: 1057146069}
   - component: {fileID: 1057146071}
+  - component: {fileID: 1057146072}
   m_Layer: 0
   m_Name: NPC_03
   m_TagString: Untagged
@@ -122485,6 +122523,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDialogue: {fileID: 11400000, guid: 79fb66a6b017fd7418264a2df7ee78e4, type: 2}
+--- !u!58 &1057146072
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057146068}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.84
 --- !u!1 &1103691559
 GameObject:
   m_ObjectHideFlags: 0
@@ -122519,7 +122593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.539, y: -16.2357}
+  m_AnchoredPosition: {x: -1.539, y: -52}
   m_SizeDelta: {x: 1835.9, y: 295.8543}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1103691561
@@ -166340,6 +166414,7 @@ GameObject:
   - component: {fileID: 1683133895}
   - component: {fileID: 1683133894}
   - component: {fileID: 1683133896}
+  - component: {fileID: 1683133897}
   m_Layer: 0
   m_Name: NPC_04
   m_TagString: Untagged
@@ -166430,6 +166505,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDialogue: {fileID: 11400000, guid: 2342d7bda4842c24dbd75d09c710759b, type: 2}
+--- !u!58 &1683133897
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683133893}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.84
 --- !u!1 &1714432363
 GameObject:
   m_ObjectHideFlags: 0
@@ -167760,6 +167871,7 @@ GameObject:
   - component: {fileID: 1949797711}
   - component: {fileID: 1949797710}
   - component: {fileID: 1949797712}
+  - component: {fileID: 1949797713}
   m_Layer: 0
   m_Name: NPC_02
   m_TagString: Untagged
@@ -167850,6 +167962,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myDialogue: {fileID: 11400000, guid: 570c156a893c8c148affa7d04887cce0, type: 2}
+--- !u!58 &1949797713
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949797709}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 0.84
 --- !u!1 &1962441734
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,21 +2,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
-
+using UnityEngine.InputSystem; // New Input System ì—°ë™ì„ ìœ„í•´ í•„ìˆ˜!
 
 public class DialogueManager : MonoBehaviour
 {
-    [Header("UI ¿ä¼Ò - ÀÎ½ºÆÑÅÍ Ã¢¿¡¼­ ¿¬°á")]
+    [Header("UI ì—°ê²°")]
     public GameObject DialoguePanel;
     public Image characterImage;
     public TextMeshProUGUI charcternameText;
     public TextMeshProUGUI dialogueText;
     public Button nextButton;
 
-    [Header("±âº»¼³Á¤")]
+    [Header("ê¸°ë³¸ ì„¤ì •")]
     public Sprite defaultCharacterImage;
 
-    [Header("Å¸ÀÌÇÎ È¿°ú ¼³Á¤")]
+    [Header("íƒ€ì´í•‘ íš¨ê³¼ ì„¤ì •")]
     public float typingSpeed = 0.05f;
     public bool skipTypingOnClick = true;
 
@@ -34,9 +34,14 @@ public class DialogueManager : MonoBehaviour
 
     void Update()
     {
-        if (isDialogueActive && Input.GetKeyDown(KeyCode.Space))
+        // â˜… New Input System ìŠ¤íƒ€ì¼ë¡œ ì—…ë°ì´íŠ¸
+        // ëŒ€í™”ê°€ í™œì„±í™”ëœ ìƒíƒœì—ì„œ Space í‚¤ ë˜ëŠ” E í‚¤ë¥¼ ëˆ„ë¥´ë©´ ë‹¤ìŒ ëŒ€ì‚¬ ì²˜ë¦¬ ì§„í–‰
+        if (isDialogueActive && Keyboard.current != null)
         {
-            HandleNextInput();
+            if (Keyboard.current.spaceKey.wasPressedThisFrame || Keyboard.current.eKey.wasPressedThisFrame)
+            {
+                HandleNextInput();
+            }
         }
     }
 
@@ -71,11 +76,11 @@ public class DialogueManager : MonoBehaviour
 
     void ShowCurrentLine()
     {
-        if(currentDialogue != null && currentLineIndex <  currentDialogue.dialogueLines.Count)
+        if(currentDialogue != null && currentLineIndex < currentDialogue.dialogueLines.Count)
         {
             if (typingCoroutine != null)
             {
-                StopCoroutine (typingCoroutine);
+                StopCoroutine(typingCoroutine);
             }
 
             string currentText = currentDialogue.dialogueLines[currentLineIndex];
@@ -109,6 +114,12 @@ public class DialogueManager : MonoBehaviour
         isTyping = false;
         DialoguePanel.SetActive(false);
         currentLineIndex = 0;
+
+            PlayerController player = FindAnyObjectByType<PlayerController>();
+        if (player != null)
+        {
+            player.SetFreeze(false);
+        }
     }
 
     public void HandleNextInput()
@@ -116,7 +127,6 @@ public class DialogueManager : MonoBehaviour
         if (isTyping && skipTypingOnClick)
         {
             CompleteTyping();
-
         }
         else if (!isTyping)
         {
@@ -144,9 +154,9 @@ public class DialogueManager : MonoBehaviour
 
         DialoguePanel.SetActive(true);
         charcternameText.text = dialogue.characterName;
+        
         if (characterImage != null)
         {
-
             if (dialogue.characterImage != null)
             {
                 characterImage.sprite = dialogue.characterImage;
@@ -158,6 +168,11 @@ public class DialogueManager : MonoBehaviour
         }
 
         ShowCurrentLine();
-    }
 
+            PlayerController player = FindAnyObjectByType<PlayerController>();
+        if (player != null)
+        {
+            player.SetFreeze(true);
+        }
+    }
 }

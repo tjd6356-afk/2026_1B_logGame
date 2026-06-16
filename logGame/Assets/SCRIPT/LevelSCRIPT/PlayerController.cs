@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     private Sprite[] currentSprites;
     private int frameIndex = 0;
     private float timer = 0f;
+    private bool isFrozen = false;
 
 
     private void Awake()
@@ -31,6 +32,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnMove(InputValue value)
     {
+        if (isFrozen) return;
+
         if (Time.timeScale == 0f)
         {
             input = Vector2.zero;
@@ -66,7 +69,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
+        if (isFrozen) return;
+
         if (input.sqrMagnitude <= 0.01f)
         {
             frameIndex = 0;
@@ -87,7 +92,9 @@ public class PlayerController : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+    {   
+        if (isFrozen) return;
+
         if (groundTilemap == null)
         {
             rb.MovePosition(rb.position + velocity * Time.fixedDeltaTime);
@@ -123,6 +130,22 @@ public class PlayerController : MonoBehaviour
         frameIndex = 0;
         timer = 0f;
         sr.sprite = currentSprites[frameIndex];
+    }
+
+
+        public void SetFreeze(bool freeze)
+    {
+        isFrozen = freeze;
+        if (freeze)
+        {
+            input = Vector2.zero;
+            velocity = Vector2.zero;
+            frameIndex = 0;
+            if (sr != null && currentSprites != null && currentSprites.Length > 0)
+            {
+                sr.sprite = currentSprites[0]; // 정지 상태(기본 프레임) 이미지로 고정
+            }
+        }
     }
 
 }
