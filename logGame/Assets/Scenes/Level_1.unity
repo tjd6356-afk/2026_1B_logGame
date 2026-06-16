@@ -2290,7 +2290,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 592328180632168549, guid: 227b72767d27b124eb62f09b9e060795, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -162575,10 +162575,10 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 1
+  Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -162680,10 +162680,9 @@ MonoBehaviour:
   bgmSource: {fileID: 1385965780}
   sfxSource: {fileID: 1385965779}
   bgmClips:
-  - {fileID: 8300000, guid: 24ea3b46796cd514aa3b69a0bab0be7f, type: 3}
-  - {fileID: 8300000, guid: 5b3f708411590164fbd850a77b40e5a3, type: 3}
-  - {fileID: 8300000, guid: dbaa112c37566894384156838a35afa7, type: 3}
-  - {fileID: 8300000, guid: 9cca9660f7bd09b488ae514db6c8c080, type: 3}
+  - {fileID: 8300000, guid: 8de1ddba27ea0ed4ca0fb9ce18527489, type: 3}
+  - {fileID: 8300000, guid: d2c8fd23c872ffd439257fcb8680b429, type: 3}
+  - {fileID: 8300000, guid: a5cfa5fa615df2d439b04270cbf2125b, type: 3}
   sfxClips:
   - {fileID: 8300000, guid: bddd25b6ab980874dac47d42084e58c3, type: 3}
   - {fileID: 8300000, guid: a5b9c90430f4c2648b53297b767050b5, type: 3}
