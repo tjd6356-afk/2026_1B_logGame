@@ -26,6 +26,8 @@ public class DialogueManager : MonoBehaviour
     private bool isTyping = false;
     private Coroutine typingCoroutine;
 
+    private bool triggerBattleOnEnd = false;
+
     void Start()
     {
         DialoguePanel.SetActive(false);
@@ -115,10 +117,18 @@ public class DialogueManager : MonoBehaviour
         DialoguePanel.SetActive(false);
         currentLineIndex = 0;
 
-            PlayerController player = FindAnyObjectByType<PlayerController>();
-        if (player != null)
+        if (triggerBattleOnEnd)
         {
-            player.SetFreeze(false);
+            Debug.Log(" 대사 종료. 배틀을 시작합니다!");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Battle");
+        }
+        else
+        {
+            PlayerController player = FindAnyObjectByType<PlayerController>();
+            if (player != null)
+            {
+                player.SetFreeze(false);
+            }
         }
     }
 
@@ -144,13 +154,15 @@ public class DialogueManager : MonoBehaviour
         return isDialogueActive;
     }
 
-    public void StartDialogue(DialogueDataSO dialogue)
+    public void StartDialogue(DialogueDataSO dialogue, bool triggerBattle = false)
     {
         if (dialogue == null || dialogue.dialogueLines.Count == 0) return;
 
         currentDialogue = dialogue;
         currentLineIndex = 0;
         isDialogueActive = true;
+
+        triggerBattleOnEnd = triggerBattle;
 
         DialoguePanel.SetActive(true);
         charcternameText.text = dialogue.characterName;

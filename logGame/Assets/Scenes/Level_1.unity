@@ -471,6 +471,7 @@ GameObject:
   - component: {fileID: 28011511}
   - component: {fileID: 28011515}
   - component: {fileID: 28011512}
+  - component: {fileID: 28011516}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -577,7 +578,7 @@ Transform:
   m_GameObject: {fileID: 28011506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.24, y: -6.51, z: 0}
+  m_LocalPosition: {x: 4.18, y: 1.49, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -724,6 +725,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86dc533ffa06a254f9948246447e2821, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &28011516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 28011506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4540782cab407f1448452dfb1eef1c1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flashlightTransform: {fileID: 226158680}
+  viewDistance: 2.4
+  viewAngle: 360
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &34021108
 GameObject:
   m_ObjectHideFlags: 0
@@ -119842,6 +119861,7 @@ GameObject:
   - component: {fileID: 501626332}
   - component: {fileID: 501626334}
   - component: {fileID: 501626335}
+  - component: {fileID: 501626336}
   m_Layer: 0
   m_Name: NPC_01
   m_TagString: Untagged
@@ -119931,6 +119951,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618879d706c19f64a87b25be483eb6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBattleNPC: 0
   myDialogue: {fileID: 11400000, guid: 9f0a5b0efc0f1da4dabe8c9418bbed64, type: 2}
 --- !u!58 &501626335
 CircleCollider2D:
@@ -119968,6 +119989,22 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.84
+--- !u!114 &501626336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 501626331}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e173caec11caeaa4f894eb7da4dc35ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseAttack: 10
+  baseMaxHealth: 100
+  baseDefense: 5
+  currentHealth: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -122433,6 +122470,7 @@ GameObject:
   - component: {fileID: 1057146069}
   - component: {fileID: 1057146071}
   - component: {fileID: 1057146072}
+  - component: {fileID: 1057146073}
   m_Layer: 0
   m_Name: NPC_03
   m_TagString: Untagged
@@ -122522,6 +122560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618879d706c19f64a87b25be483eb6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBattleNPC: 0
   myDialogue: {fileID: 11400000, guid: 79fb66a6b017fd7418264a2df7ee78e4, type: 2}
 --- !u!58 &1057146072
 CircleCollider2D:
@@ -122559,6 +122598,22 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.84
+--- !u!114 &1057146073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057146068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e173caec11caeaa4f894eb7da4dc35ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseAttack: 10
+  baseMaxHealth: 100
+  baseDefense: 5
+  currentHealth: 0
 --- !u!1 &1103691559
 GameObject:
   m_ObjectHideFlags: 0
@@ -162170,6 +162225,7 @@ GameObject:
   - component: {fileID: 1572091525}
   - component: {fileID: 1572091524}
   - component: {fileID: 1572091528}
+  - component: {fileID: 1572091529}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -162332,6 +162388,31 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleSceneName: Battle
+--- !u!114 &1572091529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1572091523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db7fca9cf07caf94aaa60d4c19c03ea9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentState: 0
+  patrolSpeed: 0.5
+  chaseSpeed: 0.75
+  directionChangeInterval: 2
+  viewDistance: 2
+  viewAngle: 110
+  rayCount: 23
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  obstacleLayer:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &1584904258
 GameObject:
   m_ObjectHideFlags: 0
@@ -166590,6 +166671,7 @@ GameObject:
   - component: {fileID: 1683133894}
   - component: {fileID: 1683133896}
   - component: {fileID: 1683133897}
+  - component: {fileID: 1683133898}
   m_Layer: 0
   m_Name: NPC_04
   m_TagString: Untagged
@@ -166679,6 +166761,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618879d706c19f64a87b25be483eb6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBattleNPC: 0
   myDialogue: {fileID: 11400000, guid: 2342d7bda4842c24dbd75d09c710759b, type: 2}
 --- !u!58 &1683133897
 CircleCollider2D:
@@ -166716,6 +166799,22 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.84
+--- !u!114 &1683133898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683133893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e173caec11caeaa4f894eb7da4dc35ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseAttack: 10
+  baseMaxHealth: 100
+  baseDefense: 5
+  currentHealth: 0
 --- !u!1 &1714432363
 GameObject:
   m_ObjectHideFlags: 0
@@ -168047,6 +168146,7 @@ GameObject:
   - component: {fileID: 1949797710}
   - component: {fileID: 1949797712}
   - component: {fileID: 1949797713}
+  - component: {fileID: 1949797714}
   m_Layer: 0
   m_Name: NPC_02
   m_TagString: Untagged
@@ -168136,6 +168236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 618879d706c19f64a87b25be483eb6cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isBattleNPC: 1
   myDialogue: {fileID: 11400000, guid: 570c156a893c8c148affa7d04887cce0, type: 2}
 --- !u!58 &1949797713
 CircleCollider2D:
@@ -168173,6 +168274,22 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.84
+--- !u!114 &1949797714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949797709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e173caec11caeaa4f894eb7da4dc35ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseAttack: 10
+  baseMaxHealth: 100
+  baseDefense: 5
+  currentHealth: 0
 --- !u!1 &1962441734
 GameObject:
   m_ObjectHideFlags: 0

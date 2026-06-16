@@ -3,6 +3,9 @@ using UnityEngine.InputSystem; // New Input System 연동을 위해 필수!
 
 public class DialogueNPC : MonoBehaviour
 {
+    [Header("전투 설정")]
+    public bool isBattleNPC = false;
+
     public DialogueDataSO myDialogue;
     private DialogueManager dialogueManager;
     private bool isPlayerInRange = false; // 플레이어가 상호작용 범위 내에 있는지 확인하는 플래그
@@ -28,7 +31,7 @@ public class DialogueNPC : MonoBehaviour
             // 이미 대화창이 켜져 있는 상태가 아니고, 대사 데이터가 존재할 때만 대화 시작
             if (!dialogueManager.IsDialogueActive() && myDialogue != null)
             {
-                dialogueManager.StartDialogue(myDialogue);
+                dialogueManager.StartDialogue(myDialogue, isBattleNPC);
             }
         }
     }
