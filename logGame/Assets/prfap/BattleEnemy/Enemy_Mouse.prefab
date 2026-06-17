@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5238817305921131230}
   - component: {fileID: 6488619364864889535}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy_Mouse
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: -8907059036088849357, guid: 1a1b14166ae87144ca38976579c7a9df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
