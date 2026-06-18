@@ -8,6 +8,7 @@ public class PlayerStatsUI : MonoBehaviour
     public TextMeshProUGUI attackText;     // 공격력 표시 텍스트
     public TextMeshProUGUI healthText;     // 체력 표시 텍스트
     public TextMeshProUGUI defenseText;    // 방어력 표시 텍스트
+    public TextMeshProUGUI deathCountText; // ★ [신규 추가] 죽은 횟수 표시 텍스트
 
     [Header("❤️ HP 상태별 이미지 설정")]
     public Image hpStateImage;             // PlayerStats_Content 우측의 큰 Image 컴포넌트
@@ -41,15 +42,16 @@ public class PlayerStatsUI : MonoBehaviour
             else return;
         }
 
-        // 스탯 데이터를 최신화 (아이템 장착 상태 반영)
+        // 스탯 데이터를 최신화 (아이템 장착 상태 반영 함수 호출)
         playerStats.UpdateStats();
 
         // 1. 추가 스탯 계산 (최종 스탯 - 기본 스탯)
+        // 캐릭터 스탯에서 계산된 (아이템 수치 + 사망 버프 수치)가 이 bonus 변수들에 자동으로 합산됩니다.
         int bonusAttack = playerStats.Attack - playerStats.baseAttack;
         int bonusMaxHealth = playerStats.MaxHealth - playerStats.baseMaxHealth;
         int bonusDefense = playerStats.Defense - playerStats.baseDefense;
 
-        // 2. UI 텍스트 UI에 반영 (요청하신 형태로 출력)
+        // 2. UI 텍스트 UI에 반영 (구버전의 깔끔한 출력 방식 유지)
         if (attackText != null) 
             attackText.text = $"공격력 : {playerStats.baseAttack} (+{bonusAttack})";
 
@@ -58,6 +60,12 @@ public class PlayerStatsUI : MonoBehaviour
 
         if (defenseText != null) 
             defenseText.text = $"방어력 : {playerStats.baseDefense} (+{bonusDefense})";
+
+        // ★ [신규 추가] 사망 횟수 UI 반영
+        if (deathCountText != null)
+        {
+            deathCountText.text = $"사망 횟수 : {BattleTransferData.deathCount} / 3";
+        }
 
         // 3. HP 감소 상태에 따른 이미지 순차 변경 로직
         if (hpStateImage != null && hpSprites != null && hpSprites.Length > 0)

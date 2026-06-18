@@ -1607,9 +1607,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e173caec11caeaa4f894eb7da4dc35ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAttack: 10
+  baseAttack: 100
   baseMaxHealth: 100
   baseDefense: 5
+  equippedItemData: {fileID: 0}
   currentHealth: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

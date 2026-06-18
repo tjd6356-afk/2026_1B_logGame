@@ -6,24 +6,25 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // ────────────────────────────────────────────────────────
-// 📦 데이터 저장 구조체 (문자열 기반 맵 저장 추가)
+// 📦 데이터 저장 구조체 (사망 횟수 저장 변수 추가)
 // ────────────────────────────────────────────────────────
 [Serializable]
 public class PlayerData
 {
     public List<string> collectedItems = new List<string>();
-    public int stage = 1;           // 구버전 호환용 (지우지 마세요)
+    public int stage = 1;           
     public string equippedItem = "";
-
-    // ★ 맵 이름 자체를 저장하는 변수 추가 (버그 원천 차단)
     public string sceneName = "";
     public float posX;
     public float posY;
     public int currentHealth;
+    
+    // ★ [추가] JSON 파일에 영구 저장될 사망 횟수
+    public int deathCount = 0; 
 }
 
 // ────────────────────────────────────────────────────────
-// 🎮 게임 데이터 매니저 (싱글톤 최종판)
+// 🎮 게임 데이터 매니저 (사망 복구 시스템 탑재)
 // ────────────────────────────────────────────────────────
 public class GameDataManager : MonoBehaviour
 {
@@ -92,10 +93,8 @@ public class GameDataManager : MonoBehaviour
             return;
         }
 
-        // ★ 현재 활성화된 씬의 이름을 있는 그대로 완벽하게 저장합니다.
         playerData.sceneName = SceneManager.GetActiveScene().name;
 
-        // 구버전 호환용 stage 숫자 추출도 안전하게 유지
         if (playerData.sceneName.StartsWith("Level_"))
         {
             int.TryParse(playerData.sceneName.Replace("Level_", ""), out playerData.stage);
@@ -104,34 +103,37 @@ public class GameDataManager : MonoBehaviour
         playerData.posX = player.transform.position.x;
         playerData.posY = player.transform.position.y;
 
+        // ★ [동기화] 현재 게임 속 사망 카운트를 JSON 데이터에 기록
+        playerData.deathCount = BattleTransferData.deathCount;
+
         CharacterStats stats = player.GetComponent<CharacterStats>();
         if (stats != null) playerData.currentHealth = stats.currentHealth;
 
-        // JSON 저장
         string json = JsonUtility.ToJson(playerData, true);
         File.WriteAllText(filePath, json);
-        Debug.Log($"💾 슬롯 {slotNumber} 저장 완료! 맵:[{playerData.sceneName}], 위치:({playerData.posX}, {playerData.posY})");
+        Debug.Log($"💾 슬롯 {slotNumber} 저장 완료! (누적 사망: {playerData.deathCount}회)");
     }
 
-    // 실제 로드 처리
+    // 실제 로드 처리 (타이틀 화면 등에서 일반 로드할 때)
     private void ExecuteLoad(int slotNumber, string filePath)
     {
         string json = File.ReadAllText(filePath);
         playerData = JsonUtility.FromJson<PlayerData>(json);
 
-        // 예외 처리: 옛날 세이브 파일이라 sceneName이 비어있다면 구버전 숫자로 보완
         if (string.IsNullOrEmpty(playerData.sceneName))
         {
             playerData.sceneName = "Level_" + playerData.stage;
         }
 
-        Debug.Log($"📂 슬롯 {slotNumber} 로드 성공! [{playerData.sceneName}] 맵으로 이동합니다.");
+        // ★ [동기화] 불러온 파일의 사망 카운트를 전역 시스템에 적용
+        BattleTransferData.deathCount = playerData.deathCount;
+
+        Debug.Log($"📂 슬롯 {slotNumber} 로드 성공! 사망 횟수({BattleTransferData.deathCount}회)가 적용되었습니다.");
 
         targetPosition = new Vector3(playerData.posX, playerData.posY, 0);
         targetHealth = playerData.currentHealth;
         pendingLoad = true;
 
-        // 이제 숫자가 아닌 진짜 저장된 맵 이름으로 안전하게 로드합니다.
         SceneManager.LoadScene(playerData.sceneName);
     }
 
@@ -146,7 +148,7 @@ public class GameDataManager : MonoBehaviour
 
     private IEnumerator RestorePlayerStateRoutine()
     {
-        yield return null; // 씬 안정화 대기
+        yield return null; 
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -164,10 +166,50 @@ public class GameDataManager : MonoBehaviour
             }
             Debug.Log("✅ 플레이어 위치 및 체력 복구 완료!");
         }
+    }
+
+    // ────────────────────────────────────────────────────────
+    // 💀 [신규 핵심 함수] 게임 오버 씬에서 '재시작'할 때 호출하는 함수
+    // ────────────────────────────────────────────────────────
+    public void RestartFromGameOver(int slotNumber = 1)
+    {
+        string filePath = Application.persistentDataPath + $"/player_data_slot_{slotNumber}.json";
+
+        // 1. 기존 세이브 데이터가 있다면 아이템 정보 등을 복구하기 위해 읽어옴
+        if (File.Exists(filePath))
+        {
+            string json = File.ReadAllText(filePath);
+            playerData = JsonUtility.FromJson<PlayerData>(json);
+        }
         else
         {
-            Debug.LogWarning("⚠️ [주의] 로드 후 플레이어 오브젝트를 찾지 못해 위치 복구를 건너뜁니다.");
+            // 세이브 파일이 아예 없던 상태라면 새 데이터 선언
+            playerData = new PlayerData();
         }
+
+        // 2. 세이브 데이터에 기록되어 있던 기본 사망 횟수에 +1 누적 (최대 3회 제한)
+        BattleTransferData.deathCount = playerData.deathCount + 1;
+        if (BattleTransferData.deathCount > 3) BattleTransferData.deathCount = 3;
+
+        // 증가한 사망 카운트를 세이브 데이터 구조체에도 반영
+        playerData.deathCount = BattleTransferData.deathCount;
+
+        // 3. 목적지 맵을 무조건 'Level_1'로 고정 변경 및 부활 체력(-1은 풀피) 세팅
+        playerData.sceneName = "Level_1";
+        playerData.stage = 1;
+        BattleTransferData.playerCurrentHealth = -1; 
+
+        // Level_1의 지정된 기본 스폰 좌표에서 시작하도록 위치 복구 플래그는 꺼둠
+        pendingLoad = false; 
+
+        // 4. 사망 횟수가 늘어난 따끈따끈한 상태를 세이브 파일에 즉시 덮어쓰기 저장
+        string updatedJson = JsonUtility.ToJson(playerData, true);
+        File.WriteAllText(filePath, updatedJson);
+
+        Debug.Log($"♻️ 게임 오버 복구 완료: 누적 사망 [{BattleTransferData.deathCount}/3] 회를 안고 Level_1에서 재시작합니다.");
+        
+        // 5. Level_1 씬 로드
+        SceneManager.LoadScene("Level_1");
     }
 
     public void SaveData(PlayerData data)
@@ -180,8 +222,7 @@ public class GameDataManager : MonoBehaviour
 
     public void PlayerDead()
     {
-        playerData.sceneName = "SampleScene"; // 사망 시 기본 맵으로 초기화
-        playerData.stage = 1;
+        // 플레이어 캐릭터 사망 시 호출되어 GameOver 씬으로 이동시킵니다.
         SceneManager.LoadScene("GameOver");
     }
 

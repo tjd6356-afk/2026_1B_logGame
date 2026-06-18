@@ -578,7 +578,7 @@ Transform:
   m_GameObject: {fileID: 28011506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.33, y: 1.49, z: 0}
+  m_LocalPosition: {x: 7.83, y: -6.24, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -709,9 +709,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e173caec11caeaa4f894eb7da4dc35ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseAttack: 10
+  baseAttack: 100
   baseMaxHealth: 100
   baseDefense: 5
+  equippedItemData: {fileID: 0}
   currentHealth: 0
 --- !u!114 &28011515
 MonoBehaviour:
@@ -120759,6 +120760,7 @@ MonoBehaviour:
   baseAttack: 10
   baseMaxHealth: 100
   baseDefense: 5
+  equippedItemData: {fileID: 0}
   currentHealth: 0
 --- !u!1 &519420028
 GameObject:
@@ -122348,6 +122350,7 @@ MonoBehaviour:
   attackText: {fileID: 1132265157}
   healthText: {fileID: 1770283808}
   defenseText: {fileID: 1111992038}
+  deathCountText: {fileID: 0}
   hpStateImage: {fileID: 991840619}
   hpSprites:
   - {fileID: 2123637285553162260, guid: c86646e3fa65c68459d11fddbd4bc075, type: 3}
@@ -123793,6 +123796,7 @@ MonoBehaviour:
   baseAttack: 10
   baseMaxHealth: 100
   baseDefense: 5
+  equippedItemData: {fileID: 0}
   currentHealth: 0
 --- !u!1001 &1071460466
 PrefabInstance:
@@ -123804,11 +123808,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1979628047369625292, guid: dadb9f92a0e8d6d43b4ed11cbf6064b5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.086568
+      value: 9.38
       objectReference: {fileID: 0}
     - target: {fileID: 1979628047369625292, guid: dadb9f92a0e8d6d43b4ed11cbf6064b5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.85045385
+      value: -3.38
       objectReference: {fileID: 0}
     - target: {fileID: 1979628047369625292, guid: dadb9f92a0e8d6d43b4ed11cbf6064b5, type: 3}
       propertyPath: m_LocalPosition.z
@@ -163213,7 +163217,7 @@ MonoBehaviour:
   m_BlendStyleIndex: 0
   m_FalloffIntensity: 0.5
   m_Color: {r: 0.33495015, g: 0.345761, b: 0.3679245, a: 1}
-  m_Intensity: 0.05
+  m_Intensity: 0.75
   m_LightVolumeIntensity: 1
   m_LightVolumeEnabled: 0
   m_ApplyToSortingLayers: c7ae73c6fb11c9be0000000017fb5a98913691ed
@@ -163605,7 +163609,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1490311393
 RectTransform:
   m_ObjectHideFlags: 0
@@ -177561,6 +177565,7 @@ MonoBehaviour:
   baseAttack: 10
   baseMaxHealth: 100
   baseDefense: 5
+  equippedItemData: {fileID: 0}
   currentHealth: 0
 --- !u!1 &1714432363
 GameObject:
@@ -179803,11 +179808,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3813699441944409538, guid: 4fad1e5fd4e89f84fa12c3fdce71b77a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.113
+      value: 7.28
       objectReference: {fileID: 0}
     - target: {fileID: 3813699441944409538, guid: 4fad1e5fd4e89f84fa12c3fdce71b77a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -7.238
+      value: -6.7
       objectReference: {fileID: 0}
     - target: {fileID: 3813699441944409538, guid: 4fad1e5fd4e89f84fa12c3fdce71b77a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -181165,7 +181170,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: NPC_02
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 6749342922763668016, guid: 6a33f606deecf2e40ba47d352783926c, type: 3}
+      propertyPath: attack
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749342922763668016, guid: 6a33f606deecf2e40ba47d352783926c, type: 3}
+      propertyPath: maxHealth
+      value: 6000
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3262766561511611239, guid: 6a33f606deecf2e40ba47d352783926c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

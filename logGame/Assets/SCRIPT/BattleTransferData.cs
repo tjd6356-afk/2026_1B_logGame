@@ -15,8 +15,9 @@ public static class BattleTransferData
     public static Vector3 enemyFieldPosition; // ★ 추가: 전투가 일어난 적의 원래 위치 기억
     public static int encounteredEnemyInstanceID; // 부딪힌 적 오브젝트의 고유 ID
     public static bool isBattleWon = false; // true = 이김, false = 도망침 또는 패배
-
-    // ★ [NPC 전투용 핵심 데이터 추가]
     public static bool isNPCBattle = false;          // true면 NPC와의 대화 도중 발생한 전투로 인식
     public static int encounteredNPCInstanceID;     // 전투를 건 NPC의 고유 ID
+
+    public static int deathCount = 0;             // 누적 사망 횟수 (최대 3회 제한용)
+    public static int playerCurrentHealth = -1;   // 플레이어의 실시간 현재 체력 (-1은 최초 상태 의미)
 }

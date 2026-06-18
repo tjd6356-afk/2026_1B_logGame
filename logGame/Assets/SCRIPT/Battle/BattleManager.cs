@@ -201,6 +201,18 @@ public class BattleManager : MonoBehaviour
         {
             currentState = BattleState.End;
             Debug.Log("🏃 도망 성공! Level_1 씬으로 돌아갑니다.");
+
+                GameObject battlePlayer = GameObject.FindGameObjectWithTag("Player");
+            if (battlePlayer != null)
+            {
+                CharacterStats playerStats = battlePlayer.GetComponent<CharacterStats>();
+                if (playerStats != null)
+                {
+                    BattleTransferData.playerCurrentHealth = playerStats.currentHealth;
+                    Debug.Log($"💾 전투 종료: 플레이어의 남은 체력({BattleTransferData.playerCurrentHealth})을 저장합니다.");
+                }
+            }
+
             SceneManager.LoadScene("Level_1");
         }
         else
@@ -317,6 +329,18 @@ public class BattleManager : MonoBehaviour
     IEnumerator ExitBattleScene()
     {
         yield return new WaitForSeconds(1.5f);
+
+        GameObject battlePlayer = GameObject.FindGameObjectWithTag("Player");
+        if (battlePlayer != null)
+        {
+            CharacterStats playerStats = battlePlayer.GetComponent<CharacterStats>();
+            if (playerStats != null)
+            {
+                BattleTransferData.playerCurrentHealth = playerStats.currentHealth;
+                Debug.Log($"💾 전투 종료: 플레이어의 남은 체력({BattleTransferData.playerCurrentHealth})을 저장합니다.");
+            }
+        }
+
         SceneManager.LoadScene("Level_1");
     }
 }

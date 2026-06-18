@@ -2,102 +2,79 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    [Header(" 기본 스탯 설정 (인스펙터에서 수정 가능)")]
+    [Header("📊 캐릭터 기본 스탯")]
     public int baseAttack = 10;
     public int baseMaxHealth = 100;
     public int baseDefense = 5;
 
-    // 다른 스크립트(전투, UI 등)에서 가져가서 쓸 최종 실시간 스탯 (기본 스탯 + 장착 보너스)
-    public int Attack { get; private set; }
-    public int MaxHealth { get; private set; }
-    public int Defense { get; private set; }
+    [Header("🛡️ 현재 장착 중인 아이템 데이터 (ScriptableObject)")]
+    public ItemData equippedItemData; 
 
-    [HideInInspector]
-    public int currentHealth; // 실시간 현재 체력 (데미지 입을 때 깎이는 수치)
+    // ★ ItemData에서 가져온 보너스 스탯을 임시 저장할 내부 변수들
+    private int itemAttackBonus = 0;
+    private int itemHealthBonus = 0;
+    private int itemDefenseBonus = 0;
 
-    private bool isPlayer = false;
+    [HideInInspector] public int currentHealth;
 
-    private void Awake()
+    // ────────────────────────────────────────────────────────
+    // ⚔️ [최종 스탯 프로퍼티] 아이템 보너스 + 사망 배율 동시 계산
+    // ────────────────────────────────────────────────────────
+    public int Attack
     {
-        // 오브젝트의 태그가 "Player"인 경우 플레이어로 인식합니다.
-        isPlayer = CompareTag("Player");
+        get
+        {
+            // 1. 기본 공격력 + 장착한 ItemData의 attackBonus를 먼저 더합니다.
+            int totalAttackWithItem = baseAttack + itemAttackBonus;
+
+            // 2. 거기에 죽은 횟수만큼 2배율 버프를 곱해줍니다. (최대 3회 제한)
+            int clampedDeath = Mathf.Clamp(BattleTransferData.deathCount, 0, 3);
+            int deathMultiplier = Mathf.RoundToInt(Mathf.Pow(2, clampedDeath)); // 1배, 2배, 4배, 8배
+
+            return totalAttackWithItem * deathMultiplier;
+        }
     }
 
-    private void Start()
+    // 최대 체력과 방어력도 ItemData의 보너스 변수명을 그대로 반영합니다.
+    public int MaxHealth => baseMaxHealth + itemHealthBonus;
+    public int Defense => baseDefense + itemDefenseBonus;
+
+    void Start()
     {
+        // 게임 시작 시 아이템 보너스 스탯 먼저 계산
         UpdateStats();
-        currentHealth = MaxHealth; // 게임 시작 시 현재 체력을 최대 체력으로 초기화
+
+        // 씬 전환 시 체력 연동 복구
+        if (BattleTransferData.playerCurrentHealth != -1)
+            currentHealth = BattleTransferData.playerCurrentHealth;
+        else
+            currentHealth = MaxHealth;
     }
 
-    // ★ 스탯을 최신 상태로 계산하는 함수 (아이템 장착/해제 시 인벤토리에서 호출해 줄 겁니다)
+    // 🔄 UI 창이 켜지거나 아이템을 꼈다 뺄 때 호출되어 스탯을 최신화하는 함수
     public void UpdateStats()
     {
-        if (isPlayer)
+        // 장착된 아이템(ScriptableObject)이 존재한다면
+        if (equippedItemData != null)
         {
-            int bonusAttack = 0;
-            int bonusHealth = 0;
-            int bonusDefense = 0;
-
-            // GameDataManager에서 현재 장착된 아이템 이름을 가져옴
-            string equippedName = GameDataManager.instance.playerData.equippedItem;
-
-            if (!string.IsNullOrEmpty(equippedName))
-            {
-                // 씬에 있는 InventoryManager를 찾아 해당 아이템의 스탯 데이터를 가져옴
-                InventoryManager inv = FindFirstObjectByType<InventoryManager>();
-                if (inv != null)
-                {
-                    ItemData equippedItemData = inv.itemDatabase.Find(x => x.itemName == equippedName);
-                    if (equippedItemData != null)
-                    {
-                        bonusAttack = equippedItemData.attackBonus;
-                        bonusHealth = equippedItemData.healthBonus;
-                        bonusDefense = equippedItemData.defenseBonus;
-                    }
-                }
-            }
-
-            // 플레이어 최종 스탯 = 기본 스탯 + 아이템 보너스
-            Attack = baseAttack + bonusAttack;
-            MaxHealth = baseMaxHealth + bonusHealth;
-            Defense = baseDefense + bonusDefense;
-
-            Debug.Log($"[플레이어 스탯 갱신] 공격력: {Attack}(+{bonusAttack}), 체력: {MaxHealth}(+{bonusHealth}), 방어력: {Defense}(+{bonusDefense})");
+            // ★ 올려주신 ItemData의 실제 변수명을 그대로 꽂아줍니다!
+            itemAttackBonus = equippedItemData.attackBonus;
+            itemHealthBonus = equippedItemData.healthBonus;
+            itemDefenseBonus = equippedItemData.defenseBonus;
         }
         else
         {
-            // 몬스터나 NPC는 아이템 장착 보너스 없이 기본 스탯만 사용
-            Attack = baseAttack;
-            MaxHealth = baseMaxHealth;
-            Defense = baseDefense;
+            // 장착한 아이템이 없다면 보너스는 전부 0
+            itemAttackBonus = 0;
+            itemHealthBonus = 0;
+            itemDefenseBonus = 0;
         }
     }
 
-    // 데미지 받는 함수 예시 (나중에 전투 시스템 만들 때 참고용)
-    public void TakeDamage(int damage)
+    // 외부에 의해 체력이 변할 때 상한선을 지켜주는 함수 (필요 시 활용)
+    public void Heal(int amount)
     {
-        int finalDamage = damage - Defense;
-        if (finalDamage < 1) finalDamage = 1; // 최소 데미지 보장
-
-        currentHealth -= finalDamage;
-        Debug.Log($"{gameObject.name}이(가) {finalDamage}의 데미지를 받음. 남은 체력: {currentHealth}/{MaxHealth}");
-
-        if (currentHealth <= 0)
-        {
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        Debug.Log($"{gameObject.name} 사망!");
-        if (isPlayer)
-        {
-            GameDataManager.instance.PlayerDead();
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        currentHealth += amount;
+        if (currentHealth > MaxHealth) currentHealth = MaxHealth;
     }
 }

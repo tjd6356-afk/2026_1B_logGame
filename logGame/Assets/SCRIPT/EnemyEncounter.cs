@@ -28,6 +28,12 @@ public class EnemyEncounter : MonoBehaviour
                 BattleTransferData.isNPCBattle = false;
                 BattleTransferData.isBattleWon = false;
 
+                CharacterStats playerStats = collision.GetComponent<CharacterStats>();
+                if (playerStats != null)
+                {
+                    BattleTransferData.playerCurrentHealth = playerStats.currentHealth;
+                }
+
                 Debug.Log($"⚔️ [{cleanName}] 스탯 및 위치 복사 완료 -> 전투 시작!");
                 SceneManager.LoadScene("Battle");
             }

@@ -19,6 +19,12 @@ public class BattleNPC : MonoBehaviour
         {
             // 1. 현재 플레이어의 위치 기억
             BattleTransferData.playerFieldPosition = player.transform.position;
+
+            CharacterStats playerStats = player.GetComponent<CharacterStats>();
+            if (playerStats != null)
+            {
+                BattleTransferData.playerCurrentHealth = playerStats.currentHealth;
+            }
         }
 
         // 2. static 데이터 상자에 NPC의 전투 스탯 배달

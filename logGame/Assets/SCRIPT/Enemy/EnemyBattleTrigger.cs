@@ -1,21 +1,25 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // ¾À ÀüÈ¯À» À§ÇØ ÇÊ¼ö!
+using UnityEngine.SceneManagement; // ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¼ï¿½!
 
 public class EnemyBattleTrigger : MonoBehaviour
 {
-    [Header("ÁøÀÔÇÒ ¹èÆ² ¾À ÀÌ¸§")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ² ï¿½ï¿½ ï¿½Ì¸ï¿½")]
     public string battleSceneName = "Battle";
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®°¡ ÇÃ·¹ÀÌ¾î(Player ÅÂ±×)ÀÎÁö È®ÀÎ
+        // ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½(Player ï¿½Â±ï¿½)ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Àû°ú Ãæµ¹! ¹èÆ² ¾ÀÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù.");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹! ï¿½ï¿½Æ² ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ï¿½Õ´Ï´ï¿½.");
 
-            // ÇÊ¿äÇÏ´Ù¸é ÀÌµ¿ÇÏ±â Àü GameDataManager.instance.SaveData(...)¸¦ È£ÃâÇØ ÇöÀç »óÅÂ¸¦ ÀúÀåÇÒ ¼ö ÀÖ½À´Ï´Ù.
-
-            // ¹èÆ² ¾À ·Îµå
+            // ï¿½Ê¿ï¿½ï¿½Ï´Ù¸ï¿½ ï¿½Ìµï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ GameDataManager.instance.SaveData(...)ï¿½ï¿½ È£ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö½ï¿½ï¿½Ï´ï¿½.
+            CharacterStats playerStats = collision.GetComponent<CharacterStats>();
+                if (playerStats != null)
+                {
+                    BattleTransferData.playerCurrentHealth = playerStats.currentHealth;
+                }
+            // ï¿½ï¿½Æ² ï¿½ï¿½ ï¿½Îµï¿½
             SceneManager.LoadScene(battleSceneName);
         }
     }
