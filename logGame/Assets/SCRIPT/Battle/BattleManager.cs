@@ -295,12 +295,17 @@ public class BattleManager : MonoBehaviour
         if (enemyStats != null && enemyStats.currentHealth <= 0)
         {
             currentState = BattleState.End;
-            Debug.Log("🏆 전투 승리! 메인 월드로 돌아갑니다.");
+            Debug.Log("🏆 전투 승리! 데이터를 저장하고 필드로 돌아갑니다.");
+
+            // ★ 적을 이겼을 때만 승리 플래그를 true로 설정!
+            BattleTransferData.isBattleWon = true;
+
             StartCoroutine(ExitBattleScene());
             return true;
         }
         else if (playerStats != null && playerStats.currentHealth <= 0)
         {
+            // (패배 시 게임오버 로직은 유지)
             currentState = BattleState.End;
             Debug.Log("💀 플레이어 사망... 게임 오버!");
             SceneManager.LoadScene("GameOver");
