@@ -23,10 +23,9 @@ public class EnemyEncounter : MonoBehaviour
                 // 2. ★ 복귀용 데이터 저장
                 // 트리거에 들어온 플레이어 오브젝트의 현재 위치 저장
                 BattleTransferData.playerFieldPosition = collision.transform.position;
-                // 이 적 오브젝트의 유니티 고유 ID값 저장 (돌아와서 삭제하기 위함)
-                BattleTransferData.encounteredEnemyInstanceID = gameObject.GetInstanceID();
-
-                // 3. ★ 전투 시작 전 승리 플래그 초기화
+                BattleTransferData.enemyFieldPosition = transform.position;
+                
+                BattleTransferData.isNPCBattle = false;
                 BattleTransferData.isBattleWon = false;
 
                 Debug.Log($"⚔️ [{cleanName}] 스탯 및 위치 복사 완료 -> 전투 시작!");

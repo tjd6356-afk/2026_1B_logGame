@@ -4,22 +4,19 @@ public class FieldReturnManager : MonoBehaviour
 {
     void Start()
     {
-        // 전투 후 돌아온 상태가 아니면 실행 안 함
         if (string.IsNullOrEmpty(BattleTransferData.enemyName)) return;
 
-        HandlePlayerReturn(); // 1. 플레이어 위치 복구
+        HandlePlayerReturn();
 
-        // 2. NPC 전투였는지, 일반 필드 적 전투였는지 판단하여 처리
         if (BattleTransferData.isNPCBattle)
         {
             HandleNPCReturn();
         }
         else
         {
-            HandleEnemyDestruction();
+            HandleEnemyDestruction(); // 일반 적 삭제 처리
         }
 
-        // 3. 사용한 데이터 상자 초기화
         ClearTransferData();
     }
 
@@ -38,42 +35,80 @@ public class FieldReturnManager : MonoBehaviour
         }
     }
 
-    void HandleNPCReturn()
+    void HandleEnemyDestruction()
     {
-        // 이겼을 때만 NPC의 후속 대화(이벤트)를 발동시킵니다.
         if (BattleTransferData.isBattleWon)
         {
-            // 씬에 배치된 모든 BattleNPC 컴포넌트를 검색
-            BattleNPC[] fieldNPCs = FindObjectsByType<BattleNPC>(FindObjectsSortMode.None);
-            int targetNPCID = BattleTransferData.encounteredNPCInstanceID;
+            // 1. 씬에 새로 배치된 모든 EnemyEncounter 적들을 검색합니다.
+            EnemyEncounter[] fieldEnemies = FindObjectsByType<EnemyEncounter>(FindObjectsSortMode.None);
+            
+            EnemyEncounter targetEnemy = null;
+            float minDistance = float.MaxValue;
+            float matchThreshold = 2.0f; // 2미터 이내의 가장 가까운 적을 탐색 (순찰 오차 고려)
 
-            foreach (BattleNPC npc in fieldNPCs)
+            foreach (EnemyEncounter enemy in fieldEnemies)
             {
-                // 나와 싸웠던 바로 그 NPC를 ID값으로 매칭 성공!
-                if (npc.gameObject.GetInstanceID() == targetNPCID)
+                string cleanName = enemy.gameObject.name.Replace("(Clone)", "").Trim();
+                
+                // 이름이 같은 녀석들 중에서
+                if (cleanName == BattleTransferData.enemyName || enemy.gameObject.name.Contains(BattleTransferData.enemyName))
                 {
-                    // NPC 스크립트에게 승리 대화를 틀으라고 명령 전달
-                    npc.OnBattleWonReturn();
-                    return;
+                    // 전투가 일어났던 좌표와 리스폰된 이 적의 거리를 계산합니다.
+                    float distance = Vector3.Distance(enemy.transform.position, BattleTransferData.enemyFieldPosition);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        targetEnemy = enemy;
+                    }
+                }
+            }
+
+            // 2. 조건에 맞는 가장 가까운 적을 월드에서 삭제합니다.
+            if (targetEnemy != null && minDistance <= matchThreshold)
+            {
+                string destroyedName = targetEnemy.gameObject.name;
+                Destroy(targetEnemy.gameObject);
+                Debug.Log($"🗑️ 승리 확인: 위치 매칭을 통해 필드의 [{destroyedName}]를 삭제했습니다. (오차 거리: {minDistance:F2}m)");
+            }
+            else
+            {
+                // [백업 예외처리] 만약 거리가 멀거나 매칭이 안 풀렸을 경우 이름이 같은 첫 번째 대상을 강제 삭제
+                foreach (EnemyEncounter enemy in fieldEnemies)
+                {
+                    string cleanName = enemy.gameObject.name.Replace("(Clone)", "").Trim();
+                    if (cleanName == BattleTransferData.enemyName)
+                    {
+                        Destroy(enemy.gameObject);
+                        Debug.Log($"🗑️ 예외 백업: 이름이 일치하는 [{cleanName}] 오브젝트를 안전하게 제거했습니다.");
+                        break;
+                    }
                 }
             }
         }
     }
 
-    void HandleEnemyDestruction()
+    void HandleNPCReturn()
     {
         if (BattleTransferData.isBattleWon)
         {
-            EnemyEncounter[] fieldEnemies = FindObjectsByType<EnemyEncounter>(FindObjectsSortMode.None);
-            int targetID = BattleTransferData.encounteredEnemyInstanceID;
+            BattleNPC[] fieldNPCs = FindObjectsByType<BattleNPC>(FindObjectsSortMode.None);
+            
+            BattleNPC targetNPC = null;
+            float minDistance = float.MaxValue;
 
-            foreach (EnemyEncounter enemy in fieldEnemies)
+            foreach (BattleNPC npc in fieldNPCs)
             {
-                if (enemy.gameObject.GetInstanceID() == targetID)
+                float distance = Vector3.Distance(npc.transform.position, BattleTransferData.enemyFieldPosition);
+                if (distance < minDistance)
                 {
-                    Destroy(enemy.gameObject);
-                    return;
+                    minDistance = distance;
+                    targetNPC = npc;
                 }
+            }
+
+            if (targetNPC != null && minDistance < 2.0f)
+            {
+                targetNPC.OnBattleWonReturn();
             }
         }
     }
@@ -82,6 +117,7 @@ public class FieldReturnManager : MonoBehaviour
     {
         BattleTransferData.enemyName = "";
         BattleTransferData.playerFieldPosition = Vector3.zero;
+        BattleTransferData.enemyFieldPosition = Vector3.zero;
         BattleTransferData.encounteredEnemyInstanceID = 0;
         BattleTransferData.isNPCBattle = false;
         BattleTransferData.encounteredNPCInstanceID = 0;

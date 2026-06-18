@@ -12,6 +12,7 @@ public static class BattleTransferData
 
     // ★ 필드 복귀용 데이터 추가
     public static Vector3 playerFieldPosition; // 적과 부딪혔을 때 플레이어 위치
+    public static Vector3 enemyFieldPosition; // ★ 추가: 전투가 일어난 적의 원래 위치 기억
     public static int encounteredEnemyInstanceID; // 부딪힌 적 오브젝트의 고유 ID
     public static bool isBattleWon = false; // true = 이김, false = 도망침 또는 패배
 
